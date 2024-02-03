@@ -1,1 +1,1 @@
-- jumps and dashes not consistent - height is sometimes random
+- jumps and dashes not consistent - height is sometimes random      || fixed

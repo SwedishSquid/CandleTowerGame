@@ -20,6 +20,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     private Vector2 lastNonzeroDesiredMoveDirection = Vector2.right;
 
+    private bool canDash = true;
+
     private Rigidbody2D rb;
 
     [SerializeField]
@@ -45,6 +47,11 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Update()
     {
+        if (state != PlayerState.Dashing && IsGrounded())
+        {
+            canDash = true;
+        }
+
         rb.velocity = Vector2.zero;
         if (state == PlayerState.Regular)
         {
@@ -225,6 +232,11 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void OnDashChanged()
     {
+        if (!canDash)
+        {
+            return;
+        }
+        canDash = false;
         Debug.Log("Dash it");
         dashDirection = lastNonzeroDesiredMoveDirection;
         if (state == PlayerState.Regular || state == PlayerState.Jumping || state == PlayerState.NotFalling)
